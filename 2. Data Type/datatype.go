@@ -2,6 +2,22 @@ package main
 
 import "fmt"
 
+func Add(x, y int) int {
+	return x + y
+}
+
+func Reduction(x, y int) int {
+	return x - y
+}
+
+func Multiply(x, y float32) float32 {
+	return x * y
+}
+
+func Divider(x, y float32) float32 {
+	return x / y
+}
+
 func main() {
 	// 2 Type Number Data Type: Integer and Floating Point
 
@@ -41,4 +57,11 @@ func main() {
 	// String Data Type
 
 	fmt.Println("\"Ini merupakan String\", panjangnya adalah:", len("Ini merupakan String"), "karakter")
+
+	// Another Example
+
+	fmt.Println("2 + 2 =", Add(2, 2))
+	fmt.Println("47 - 19 =", Reduction(47, 19))
+	fmt.Println("4.7 * 3.2 =", Multiply(4.7, 3.2))
+	fmt.Println("7 / 2 =", Divider(7, 2))
 }
