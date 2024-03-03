@@ -10,11 +10,11 @@ func Reduction(x, y int) int {
 	return x - y
 }
 
-func Multiply(x, y float32) float32 {
+func Multiply(x, y float64) float64 {
 	return x * y
 }
 
-func Divider(x, y float32) float32 {
+func Divider(x, y float64) float64 {
 	return x / y
 }
 
