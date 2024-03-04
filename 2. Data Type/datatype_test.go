@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"math/rand"
 	"reflect"
 	"testing"
@@ -150,14 +151,9 @@ func TestSearch(t *testing.T) {
 	})
 
 	t.Run("Search Unknown Given Word", func(t *testing.T) {
-		_, err := dictionary.Search("unknown")
-		want := "could not find the word you were looking for"
+		_, got := dictionary.Search("unknown")
 
-		if err == nil {
-			t.Fatal("expected to get an error.")
-		}
-
-		assertCorrectStringValue(t, err.Error(), want)
+		assertCorrectErrorValue(t, got, ErrNotFound)
 	})
 }
 
@@ -186,5 +182,12 @@ func assertCorrectStringValue(t *testing.T, got, want string) {
 	t.Helper()
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
+	}
+}
+
+func assertCorrectErrorValue(t testing.TB, got, want error) {
+	t.Helper()
+	if !errors.Is(got, want) {
+		t.Errorf("got error %q want %q", got, want)
 	}
 }
