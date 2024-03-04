@@ -141,9 +141,9 @@ func TestSumAll(t *testing.T) {
 
 func TestSearch(t *testing.T) {
 	t.Run("Search key test in Map", func(t *testing.T) {
-		dictionary := map[string]string{"test": "a procedure intended to establish"}
+		dictionary := Dictionary{"test": "a procedure intended to establish"}
 
-		got := Search(dictionary, "test")
+		got := dictionary.Search("test")
 		want := "a procedure intended to establish"
 
 		assertCorrectStringValue(t, got, want)
