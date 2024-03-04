@@ -140,13 +140,24 @@ func TestSumAll(t *testing.T) {
 }
 
 func TestSearch(t *testing.T) {
-	t.Run("Search key test in Map", func(t *testing.T) {
-		dictionary := Dictionary{"test": "a procedure intended to establish"}
+	dictionary := Dictionary{"test": "a procedure intended to establish"}
 
-		got := dictionary.Search("test")
+	t.Run("Search Known Given Word", func(t *testing.T) {
+		got, _ := dictionary.Search("test")
 		want := "a procedure intended to establish"
 
 		assertCorrectStringValue(t, got, want)
+	})
+
+	t.Run("Search Unknown Given Word", func(t *testing.T) {
+		_, err := dictionary.Search("unknown")
+		want := "could not find the word you were looking for"
+
+		if err == nil {
+			t.Fatal("expected to get an error.")
+		}
+
+		assertCorrectStringValue(t, err.Error(), want)
 	})
 }
 
