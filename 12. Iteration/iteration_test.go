@@ -6,7 +6,12 @@ func TestRepeat(t *testing.T) {
 	repeated := Repeat("a", 5)
 	expected := "aaaaa"
 
-	if repeated != expected {
-		t.Errorf("expected %q but got %q", expected, repeated)
+	assertCorrectMessage(t, repeated, expected)
+}
+
+func assertCorrectMessage(t testing.TB, got, want string) {
+	t.Helper()
+	if got != want {
+		t.Errorf("got %q want %q", got, want)
 	}
 }
