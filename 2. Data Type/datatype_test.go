@@ -2,6 +2,7 @@ package main
 
 import (
 	"math/rand"
+	"reflect"
 	"testing"
 )
 
@@ -87,8 +88,8 @@ func TestSum(t *testing.T) {
 			numbers[index] = rand.Intn(100)
 			want += numbers[index]
 		}
-		t.Log("Numbers:", numbers)
-		t.Log("Expected:", want)
+		t.Logf("Numbers: %v", numbers)
+		t.Logf("Expected: %d", want)
 
 		got := Sum(numbers)
 
@@ -98,14 +99,14 @@ func TestSum(t *testing.T) {
 
 func assertCorrectIntValue(t *testing.T, sum, expected int) {
 	t.Helper()
-	if sum != expected {
+	if !reflect.DeepEqual(sum, expected) {
 		t.Errorf("sum %d expected %d", sum, expected)
 	}
 }
 
 func assertCorrectFloatValue(t *testing.T, sum float64, expected float64) {
 	t.Helper()
-	if sum != expected {
+	if !reflect.DeepEqual(sum, expected) {
 		t.Errorf("sum %f expected %f", sum, expected)
 	}
 }
