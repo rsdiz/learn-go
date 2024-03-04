@@ -139,6 +139,17 @@ func TestSumAll(t *testing.T) {
 	})
 }
 
+func TestSearch(t *testing.T) {
+	t.Run("Search key test in Map", func(t *testing.T) {
+		dictionary := map[string]string{"test": "a procedure intended to establish"}
+
+		got := Search(dictionary, "test")
+		want := "a procedure intended to establish"
+
+		assertCorrectStringValue(t, got, want)
+	})
+}
+
 func assertCorrectIntValue(t *testing.T, sum, expected int) {
 	t.Helper()
 	if !reflect.DeepEqual(sum, expected) {
@@ -157,5 +168,12 @@ func assertCorrectSliceValue(t *testing.T, got, expected []int) {
 	t.Helper()
 	if !reflect.DeepEqual(got, expected) {
 		t.Errorf("got %v expected %v", got, expected)
+	}
+}
+
+func assertCorrectStringValue(t *testing.T, got, want string) {
+	t.Helper()
+	if got != want {
+		t.Errorf("got %q want %q", got, want)
 	}
 }
