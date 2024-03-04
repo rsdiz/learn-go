@@ -2,6 +2,14 @@ package main
 
 import "fmt"
 
+func Repeat(char string, repeatCount int) string {
+	var repeated string
+	for i := 0; i < repeatCount; i++ {
+		repeated = repeated + char
+	}
+	return repeated
+}
+
 func main() {
 	// For loops is one of the iteration
 	// Simple For
@@ -28,4 +36,6 @@ func main() {
 	for index, value := range data {
 		fmt.Printf("Index: %d = %q\n", index, value)
 	}
+
+	fmt.Println(Repeat("F", 5))
 }
