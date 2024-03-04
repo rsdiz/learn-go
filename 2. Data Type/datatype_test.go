@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"math/rand"
+	"testing"
+)
 
 func TestAdd(t *testing.T) {
 	t.Run("Simple Adding Test", func(t *testing.T) {
@@ -70,8 +73,24 @@ func TestSum(t *testing.T) {
 	t.Run("Sum number 1 until 5", func(t *testing.T) {
 		numbers := [5]int{1, 2, 3, 4, 5}
 
-		got := Sum(numbers)
+		got := Sum(numbers[:])
 		want := 15
+
+		assertCorrectIntValue(t, got, want)
+	})
+
+	t.Run("Sum random numbers", func(t *testing.T) {
+		numbers := make([]int, 10)
+
+		want := 0
+		for index, _ := range numbers {
+			numbers[index] = rand.Intn(100)
+			want += numbers[index]
+		}
+		t.Log("Numbers:", numbers)
+		t.Log("Expected:", want)
+
+		got := Sum(numbers)
 
 		assertCorrectIntValue(t, got, want)
 	})
