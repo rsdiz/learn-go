@@ -37,6 +37,10 @@ func SumAll(numbersToSum ...[]int) []int {
 	return sums
 }
 
+func Search(dictionary map[string]string, word string) string {
+	return dictionary[word]
+}
+
 func main() {
 	// 2 Type Number Data Type: Integer and Floating Point
 
