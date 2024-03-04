@@ -66,6 +66,17 @@ func TestDivider(t *testing.T) {
 	})
 }
 
+func TestSum(t *testing.T) {
+	t.Run("Sum number 1 until 5", func(t *testing.T) {
+		numbers := [5]int{1, 2, 3, 4, 5}
+
+		got := Sum(numbers)
+		want := 15
+
+		assertCorrectIntValue(t, got, want)
+	})
+}
+
 func assertCorrectIntValue(t *testing.T, sum, expected int) {
 	t.Helper()
 	if sum != expected {
