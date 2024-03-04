@@ -81,7 +81,7 @@ func TestSum(t *testing.T) {
 	})
 
 	t.Run("Sum random numbers", func(t *testing.T) {
-		numbers := make([]int, 10)
+		numbers := make([]int, rand.Intn(15))
 
 		want := 0
 		for index, _ := range numbers {
@@ -97,6 +97,48 @@ func TestSum(t *testing.T) {
 	})
 }
 
+func TestSumAll(t *testing.T) {
+	t.Run("Sum Multiple Data", func(t *testing.T) {
+		got := SumAll(
+			[]int{4, 7, 9},
+			[]int{5, 4, 1},
+		)
+		expected := []int{20, 10}
+		t.Logf("Got: %v", got)
+		t.Logf("Expected: %d", expected)
+
+		assertCorrectSliceValue(t, got, expected)
+	})
+
+	t.Run("Sum Random Multiple Data", func(t *testing.T) {
+		data1 := make([]int, rand.Intn(15))
+		data2 := make([]int, rand.Intn(15))
+		expected := make([]int, 2)
+
+		want := 0
+		for index, _ := range data1 {
+			data1[index] = rand.Intn(100)
+			want += data1[index]
+		}
+		expected[0] = want
+
+		want = 0
+		for index, _ := range data2 {
+			data2[index] = rand.Intn(100)
+			want += data2[index]
+		}
+		expected[1] = want
+
+		got := SumAll(data1, data2)
+		t.Logf("Data 1: %v", data1)
+		t.Logf("Data 2: %v", data2)
+		t.Logf("Got: %v", got)
+		t.Logf("Expected: %d", expected)
+
+		assertCorrectSliceValue(t, got, expected)
+	})
+}
+
 func assertCorrectIntValue(t *testing.T, sum, expected int) {
 	t.Helper()
 	if !reflect.DeepEqual(sum, expected) {
@@ -104,9 +146,16 @@ func assertCorrectIntValue(t *testing.T, sum, expected int) {
 	}
 }
 
-func assertCorrectFloatValue(t *testing.T, sum float64, expected float64) {
+func assertCorrectFloatValue(t *testing.T, sum, expected float64) {
 	t.Helper()
 	if !reflect.DeepEqual(sum, expected) {
 		t.Errorf("sum %f expected %f", sum, expected)
+	}
+}
+
+func assertCorrectSliceValue(t *testing.T, got, expected []int) {
+	t.Helper()
+	if !reflect.DeepEqual(got, expected) {
+		t.Errorf("got %v expected %v", got, expected)
 	}
 }
