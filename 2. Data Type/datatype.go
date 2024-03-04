@@ -155,4 +155,32 @@ func main() {
 
 	fmt.Println(thisArray)
 	fmt.Println(thisSlice)
+
+	// Map Data Type
+	// Map is like array and slice, this data type contains a collection of the data, but we can change the index with
+	// some value
+	// Map is collection of key-value, the key is unique
+	// The different between array is Map has no limit in capacity, we can store data as much as possible, as long
+	// as the keywords are different, if the key are same, then previous data will be replaced with the new data
+
+	identity := map[string]string{ // map[TypeKey]TypeValue{...}
+		"name":    "Rosyid",
+		"address": "Temanggung",
+	}
+
+	identity["title"] = "Backend Developer"
+
+	fmt.Println("Identity:", identity)
+	fmt.Println("Name:", identity["name"])
+	fmt.Println("Address:", identity["address"])
+
+	// Function in map
+	// len(map) = return how much data in map
+	// map[key] = return value based on the given key
+	// map[key] = update value based on the given key
+	// make(map[TypeKey]TypeValue) = create map
+	// delete(map, key) = delete data from map based on the given key
+
+	delete(identity, "address")
+	fmt.Println("Identity:", identity)
 }
