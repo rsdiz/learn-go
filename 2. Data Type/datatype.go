@@ -85,4 +85,74 @@ func main() {
 	}
 
 	fmt.Println(values)
+
+	// Slice Data Type
+	// Slice data type is a slice of array data type
+	// Slice are similar with Arrays, the difference is that the size of Slice can change
+	// Slice and Arrays are always connected, where Slice are data that access some or all the data in the Array
+
+	// The Detail from Slice Data Type
+	// Slice data type have three data, pointer, length, and capacity
+	// Pointer is the first data pointer in the slice array
+	// Length is length of the slice
+	// and Capacity is the capacity of the slice, where the length cannot more than the capacity
+	// If we changed data in array, the data in the slice will also change (vice versa)
+	// because data in slice is reference from data in array
+
+	// Example:
+
+	month := [...]string{ // if we don't know how much length the data, we can use [...]
+		"Januari",
+		"Februari",
+		"Maret",
+		"April",
+		"Mei",
+		"Juni",
+		"Juli",
+		"Agustus",
+		"September",
+		"Oktober",
+		"November",
+		"Desember",
+	}
+
+	semester1 := month[0:6]  // pointer = 0, length = 6, capacity = 12 (from pointer/0 until end of array/12)
+	semester2 := month[6:12] // pointer = 6, length = 6, capacity = 6 (from pointer/6 until end of array/12)
+
+	fmt.Printf("Semester 1: %q, Capacity: %d, Length: %d\n", semester1, cap(semester1), len(semester1))
+	fmt.Printf("Semester 2: %q, Capacity: %d, Length: %d\n", semester2, cap(semester2), len(semester2))
+
+	// Append Function in Slice
+	// append is function to create new slice from existing slice and add/replace data to the array
+	// if capacity from existing slice is full, it will create new array,
+	// if capacity is available, it will replace the existing data
+	// and the new slice will not reference from existing array
+
+	semester3 := append(semester1, "Zulhijah") // Juli in month will replace with Zulhijah
+	fmt.Printf("Semester 3: %q, Capacity: %d, Length: %d\n", semester3, cap(semester3), len(semester3))
+
+	semester4 := append(semester2, "Syakban") // This will create new array
+	fmt.Printf("Semester 4: %q, Capacity: %d, Length: %d\n", semester4, cap(semester4), len(semester4))
+
+	fmt.Println("Value month:", month)
+
+	// Make function in slice
+	// make is function to create slice without existing array
+
+	day := make([]string, 6, 7)
+	day[0], day[1], day[2], day[3], day[4], day[5] = "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"
+	weekday := append(day[5:], "Minggu")
+
+	fmt.Printf("Weekday: %q\n", weekday)
+	fmt.Printf("Day: %q, Len: %d, Cap: %d\n", day, len(day), cap(day)) // Minggu will not show because the length is 6
+
+	day = day[0:7]
+	fmt.Printf("Full Day: %q, Len: %d, Cap: %d\n", day, len(day), cap(day))
+
+	// Please be careful when create array or slice
+	thisArray := [...]int{90, 86, 79} // use ... or specific number to create array
+	thisSlice := []int{10, 20, 30}
+
+	fmt.Println(thisArray)
+	fmt.Println(thisSlice)
 }
