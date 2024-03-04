@@ -64,4 +64,25 @@ func main() {
 	fmt.Println("47 - 19 =", Reduction(47, 19))
 	fmt.Println("4.7 * 3.2 =", Multiply(4.7, 3.2))
 	fmt.Println("7 / 2 =", Divider(7, 2))
+
+	// Array Data Type
+	// Array contains a collection of data of the same type
+	// when create an array, we need to determine the amount of data that the array can hold
+	// the capacity of array cannot be increased after the array is created
+
+	var names [3]string
+	names[0] = "Muhammad"
+	names[1] = "Rosyid"
+	names[2] = "Izzulkhaq"
+
+	fmt.Println(names)
+	fmt.Println(len(names)) // to show how much length/amount data of array
+
+	values := [3]int{
+		80,
+		75,
+		90,
+	}
+
+	fmt.Println(values)
 }
