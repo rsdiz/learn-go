@@ -18,6 +18,14 @@ func Divider(x, y float64) float64 {
 	return x / y
 }
 
+func Sum(numbers [5]int) int {
+	sum := 0
+	for i := 0; i < 5; i++ {
+		sum += numbers[i]
+	}
+	return sum
+}
+
 func main() {
 	// 2 Type Number Data Type: Integer and Floating Point
 
@@ -78,13 +86,17 @@ func main() {
 	fmt.Println(names)
 	fmt.Println(len(names)) // to show how much length/amount data of array
 
-	values := [3]int{
+	values := [5]int{
 		80,
 		75,
 		90,
+		67,
+		72,
 	}
 
 	fmt.Println(values)
+
+	fmt.Println(Sum(values))
 
 	// Slice Data Type
 	// Slice data type is a slice of array data type
