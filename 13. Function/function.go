@@ -81,6 +81,15 @@ func factorialWithRecursive(number int) int {
 	}
 }
 
+func log() {
+	fmt.Println("finished calling the function")
+}
+
+func runApp() {
+	defer log()
+	fmt.Println("Application Running!")
+}
+
 func main() {
 	// Function
 	// is a block of code intentionally created in a program so that can be used repeatedly
@@ -200,4 +209,11 @@ func main() {
 	plusWith(2)
 	plusWith(4)
 	fmt.Println("Current Counter:", counter)
+
+	// Defer Function
+	// is a function that we can schedule to be executed after a function has finished executing
+	// Defer function will always be executed even if an errors occur in the function being executed
+	// Note: Write defer function on top, so when the errors occur, the defer function will be executed
+
+	runApp() // when we call this function, in the end, log function will be executed
 }
