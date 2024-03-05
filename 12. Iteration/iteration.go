@@ -38,4 +38,21 @@ func main() {
 	}
 
 	fmt.Println(Repeat("F", 5))
+
+	// Break and Continue
+	// in iteration, there is something called Break and Continue
+	// Break is used to stop the iteration
+	// Continue is used to stop current iteration, and jump to next iteration
+
+	for index := 0; index < 5; index++ { // for init statement; statement; post statement {...}
+		if index == 1 {
+			continue
+		}
+
+		fmt.Println("Loop!", index)
+
+		if index == 3 {
+			break
+		}
+	}
 }
