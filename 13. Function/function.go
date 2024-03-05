@@ -5,7 +5,10 @@ import (
 	"strings"
 )
 
-type Filter func(string) string
+type (
+	Filter    func(string) string
+	Blacklist func(string) bool
+)
 
 func PrintHello() {
 	fmt.Println("Hello")
@@ -51,6 +54,14 @@ func filterBadWord(word string) string {
 		return "..."
 	default:
 		return word
+	}
+}
+
+func login(username string, blacklist Blacklist) {
+	if blacklist(username) {
+		fmt.Println("Cannot Logged In! You're blocked by System!")
+	} else {
+		fmt.Println("Welcome Back", username)
 	}
 }
 
@@ -128,4 +139,27 @@ func main() {
 	// see parameter in getHelloWithFilter(), now it using type declaration
 	filteredHello = getHelloWithFilter("Celeng", filterBadWord)
 	fmt.Println(filteredHello)
+
+	// Anonymous Function
+	// Previous, everytime We create function, We're gives name to it
+	// But sometimes, for make it easier we store function in variable or as parameter without create the function first.
+	// That is named Anonymous Function, or function without name
+
+	// First Method, store as variable
+	blacklist := func(username string) bool {
+		switch strings.ToLower(username) {
+		case "root":
+			return true
+		case "admin":
+			return true
+		default:
+			return false
+		}
+	}
+	login("rosyid", blacklist)
+
+	// Second Method, write directly as parameter when calling function
+	login("Hacker", func(username string) bool {
+		return strings.ToLower(username) == "hacker"
+	})
 }
