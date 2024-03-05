@@ -26,6 +26,14 @@ func getAccessoriesStats() (bracelet, necklace, earring int) {
 	return
 }
 
+func calcAverage(numbers ...int) int {
+	total := 0
+	for _, number := range numbers {
+		total += number
+	}
+	return total / len(numbers)
+}
+
 func main() {
 	// Function
 	// is a block of code intentionally created in a program so that can be used repeatedly
@@ -63,6 +71,12 @@ func main() {
 	// in Go-Lang we can give name to return value
 
 	bracelet, necklace, earring := getAccessoriesStats()
+	fmt.Printf("Bracelet give extra %d ATK, Necklace give extra %d DEF, and Earring give extra %d SPD\n", bracelet, necklace, earring)
 
-	fmt.Printf("Bracelet give extra %d ATK, Necklace give extra %d DEF, and Earring give extra %d SPD", bracelet, necklace, earring)
+	// Variadic Function
+	// The last parameter in function has an ability to become a varargs.
+	// Varargs means the data can accept more than one input, or it as some kind of array
+
+	average := calcAverage(100, 96, 80, 85, 92, 83)
+	fmt.Println("Average grade from Class A is", average)
 }
