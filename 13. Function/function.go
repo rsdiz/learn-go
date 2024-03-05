@@ -10,6 +10,10 @@ func PrintHelloTo(name string) {
 	fmt.Println("Hello", name)
 }
 
+func getHello(name string) string {
+	return "Hello again " + name
+}
+
 func main() {
 	// Function
 	// is a block of code intentionally created in a program so that can be used repeatedly
@@ -24,4 +28,10 @@ func main() {
 
 	name := "Rosyid"
 	PrintHelloTo(name)
+
+	// Function Return Value
+	// Function can return a value
+	// To create function with return value, we need to write down the return data type of the function
+
+	fmt.Println(getHello(name))
 }
