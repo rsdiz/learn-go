@@ -203,6 +203,16 @@ func TestDictionary_Update(t *testing.T) {
 	})
 }
 
+func TestDictionary_Delete(t *testing.T) {
+	word := "test"
+	dictionary := Dictionary{word: "test definition"}
+
+	dictionary.Delete(word)
+
+	_, err := dictionary.Search(word)
+	assertCorrectErrorValue(t, err, ErrNotFound)
+}
+
 func assertCorrectIntValue(t testing.TB, sum, expected int) {
 	t.Helper()
 	if !reflect.DeepEqual(sum, expected) {
