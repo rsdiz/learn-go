@@ -79,4 +79,11 @@ func main() {
 
 	average := calcAverage(100, 96, 80, 85, 92, 83)
 	fmt.Println("Average grade from Class A is", average)
+
+	// Variadic Function but Slice as Parameter
+	// Yes, We can make vararg with slice as parameter
+
+	grades := []int{100, 96, 80, 85, 92, 83}
+	average = calcAverage(grades...)
+	fmt.Println("Average grade from Class A is", average)
 }
