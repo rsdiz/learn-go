@@ -158,12 +158,25 @@ func TestDictionary_Search(t *testing.T) {
 }
 
 func TestDictionary_Add(t *testing.T) {
-	dictionary := Dictionary{}
-	word := "test"
-	definition := "a procedure intended to establish"
-	dictionary.Add(word, definition)
+	t.Run("Add New Word", func(t *testing.T) {
+		dictionary := Dictionary{}
+		word := "test"
+		definition := "a procedure intended to establish"
+		err := dictionary.Add(word, definition)
 
-	assertCorrectDefinitionValue(t, dictionary, word, definition)
+		assertCorrectErrorValue(t, err, nil)
+		assertCorrectDefinitionValue(t, dictionary, word, definition)
+	})
+
+	t.Run("Add Existing Word", func(t *testing.T) {
+		word := "test"
+		definition := "a procedure intended to establish"
+		dictionary := Dictionary{word: definition}
+		err := dictionary.Add(word, "new test definition")
+
+		assertCorrectErrorValue(t, err, ErrWordExists)
+		assertCorrectDefinitionValue(t, dictionary, word, definition)
+	})
 }
 
 func assertCorrectIntValue(t testing.TB, sum, expected int) {
