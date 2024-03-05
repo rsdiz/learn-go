@@ -45,4 +45,9 @@ func main() {
 
 	firstName, lastName := getFullName()
 	fmt.Println("Firstname:", firstName, "\nLastname:", lastName)
+
+	// Ignore Return Value
+	// We can ignore return value by change the variable to underscore (_)
+
+	firstName, _ = getFullName()
 }
