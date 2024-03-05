@@ -86,4 +86,11 @@ func main() {
 	grades := []int{100, 96, 80, 85, 92, 83}
 	average = calcAverage(grades...)
 	fmt.Println("Average grade from Class A is", average)
+
+	// Function Value
+	// Function is first class citizen, function can create as datatype, and can be stored in variable
+	// It means, we can create function as independent without write class, like in OOP
+
+	hello := getHello // store function in variable
+	fmt.Println(hello("Rosyid"))
 }
