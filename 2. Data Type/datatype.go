@@ -52,6 +52,10 @@ func (d Dictionary) Search(word string) (string, error) {
 	return definition, nil
 }
 
+func (d Dictionary) Add(word, definition string) {
+	d[word] = definition
+}
+
 func main() {
 	// 2 Type Number Data Type: Integer and Floating Point
 
