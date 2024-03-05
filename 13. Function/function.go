@@ -187,4 +187,17 @@ func main() {
 	fmt.Println(4 * 3 * 2 * 1)             // This is how factorial works
 	fmt.Println(factorialWithLoop(4))      // This is example without recursive
 	fmt.Println(factorialWithRecursive(4)) // This is example with recursive
+
+	// Closures
+	// is an ability of function to interact with data's around it in the same scope
+
+	counter := 0
+	plusWith := func(value int) {
+		// variable counter in above function can be accessed in this function
+		// but variable in this scope can't be accessible outside this function
+		counter += value
+	}
+	plusWith(2)
+	plusWith(4)
+	fmt.Println("Current Counter:", counter)
 }
