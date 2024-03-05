@@ -83,6 +83,10 @@ func factorialWithRecursive(number int) int {
 
 func log() {
 	fmt.Println("finished calling the function")
+	message := recover()
+	if message != nil {
+		fmt.Println("Error Occurred:", message)
+	}
 }
 
 func runApp() {
@@ -91,6 +95,15 @@ func runApp() {
 }
 
 func consideredToError(error bool) {
+	defer log()
+	PrintHelloTo("Rosyid")
+	if error {
+		panic("ERROR")
+	}
+	fmt.Println(getHello(filterBadWord("Rosyid")))
+}
+
+func consideredToRecover(error bool) {
 	defer log()
 	PrintHelloTo("Rosyid")
 	if error {
@@ -232,4 +245,12 @@ func main() {
 	// When panic function called, the defer function will still be executed
 
 	consideredToError(false) // change to true to call panic
+
+	// Recover Function
+	// is a function to catch the panic data
+	// with the recover, panic function process will be stopped, and the program will continue running
+	// to write recover function, put it on the defer function
+
+	consideredToRecover(true)
+	consideredToRecover(false)
 }
