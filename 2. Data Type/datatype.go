@@ -5,11 +5,14 @@ import (
 	"fmt"
 )
 
-type Dictionary map[string]string
+type (
+	Dictionary    map[string]string
+	DictionaryErr string
+)
 
 var (
-	ErrNotFound   = errors.New("could not find the word you were looking for")
-	ErrWordExists = errors.New("cannot add word because it already exists")
+	ErrNotFound   = DictionaryErr("could not find the word you were looking for")
+	ErrWordExists = DictionaryErr("cannot add word because it already exists")
 )
 
 func Add(x, y int) int {
@@ -68,6 +71,10 @@ func (d Dictionary) Add(word, definition string) error {
 	}
 
 	return nil
+}
+
+func (e DictionaryErr) Error() string {
+	return string(e)
 }
 
 func main() {
