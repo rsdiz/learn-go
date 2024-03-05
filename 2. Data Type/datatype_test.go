@@ -179,6 +179,17 @@ func TestDictionary_Add(t *testing.T) {
 	})
 }
 
+func TestDictionary_Update(t *testing.T) {
+	word := "test"
+	definition := "a procedure intended to establish"
+	dictionary := Dictionary{word: definition}
+	newDefinition := "new definition"
+
+	dictionary.Update(word, newDefinition)
+
+	assertCorrectDefinitionValue(t, dictionary, word, newDefinition)
+}
+
 func assertCorrectIntValue(t testing.TB, sum, expected int) {
 	t.Helper()
 	if !reflect.DeepEqual(sum, expected) {
