@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func PrintHello() {
 	fmt.Println("Hello")
@@ -32,6 +35,21 @@ func calcAverage(numbers ...int) int {
 		total += number
 	}
 	return total / len(numbers)
+}
+
+func getHelloWithFilter(word string, filter func(string) string) string {
+	return getHello(filter(word))
+}
+
+func filterBadWord(word string) string {
+	switch strings.ToLower(word) {
+	case "asu":
+		return "..."
+	case "celeng":
+		return "..."
+	default:
+		return word
+	}
 }
 
 func main() {
@@ -93,4 +111,10 @@ func main() {
 
 	hello := getHello // store function in variable
 	fmt.Println(hello("Rosyid"))
+
+	// Function as Parameter
+	// Besides being able to store in variable as value, we can also use function as parameters for other functions
+
+	filteredHello := getHelloWithFilter("ASU", filterBadWord)
+	fmt.Println(filteredHello)
 }
