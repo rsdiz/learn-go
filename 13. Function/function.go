@@ -14,6 +14,10 @@ func getHello(name string) string {
 	return "Hello again " + name
 }
 
+func getFullName() (string, string) {
+	return "Rosyid", "Izzulkhaq"
+}
+
 func main() {
 	// Function
 	// is a block of code intentionally created in a program so that can be used repeatedly
@@ -34,4 +38,11 @@ func main() {
 	// To create function with return value, we need to write down the return data type of the function
 
 	fmt.Println(getHello(name))
+
+	// Returning Multiple Values
+	// in Go-Lang, function can return multiple values
+	// to create function with return multiple values, we need to write down all the return data type of the function
+
+	firstName, lastName := getFullName()
+	fmt.Println("Firstname:", firstName, "\nLastname:", lastName)
 }
