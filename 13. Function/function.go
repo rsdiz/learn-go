@@ -90,6 +90,15 @@ func runApp() {
 	fmt.Println("Application Running!")
 }
 
+func consideredToError(error bool) {
+	defer log()
+	PrintHelloTo("Rosyid")
+	if error {
+		panic("ERROR")
+	}
+	fmt.Println(getHello(filterBadWord("Rosyid")))
+}
+
 func main() {
 	// Function
 	// is a block of code intentionally created in a program so that can be used repeatedly
@@ -216,4 +225,11 @@ func main() {
 	// Note: Write defer function on top, so when the errors occur, the defer function will be executed
 
 	runApp() // when we call this function, in the end, log function will be executed
+
+	// Panic Function
+	// is a function that can we use to stop the program
+	// Panic function usually used by the program when the error occur.
+	// When panic function called, the defer function will still be executed
+
+	consideredToError(false) // change to true to call panic
 }
