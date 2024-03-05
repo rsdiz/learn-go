@@ -140,7 +140,7 @@ func TestSumAll(t *testing.T) {
 	})
 }
 
-func TestSearch(t *testing.T) {
+func TestDictionary_Search(t *testing.T) {
 	dictionary := Dictionary{"test": "a procedure intended to establish"}
 
 	t.Run("Search Known Given Word", func(t *testing.T) {
@@ -155,6 +155,19 @@ func TestSearch(t *testing.T) {
 
 		assertCorrectErrorValue(t, got, ErrNotFound)
 	})
+}
+
+func TestDictionary_Add(t *testing.T) {
+	dictionary := Dictionary{}
+	dictionary.Add("test", "a procedure intended to establish")
+
+	want := "a procedure intended to establish"
+	got, err := dictionary.Search("test")
+	if err != nil {
+		t.Fatal("should find added word:", err)
+	}
+
+	assertCorrectStringValue(t, got, want)
 }
 
 func assertCorrectIntValue(t *testing.T, sum, expected int) {
