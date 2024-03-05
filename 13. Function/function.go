@@ -65,6 +65,22 @@ func login(username string, blacklist Blacklist) {
 	}
 }
 
+func factorialWithLoop(number int) (result int) {
+	result = 1
+	for i := number; i > 0; i-- {
+		result *= i
+	}
+	return
+}
+
+func factorialWithRecursive(number int) int {
+	if number == 1 {
+		return 1
+	} else {
+		return number * factorialWithRecursive(number-1)
+	}
+}
+
 func main() {
 	// Function
 	// is a block of code intentionally created in a program so that can be used repeatedly
@@ -162,4 +178,13 @@ func main() {
 	login("Hacker", func(username string) bool {
 		return strings.ToLower(username) == "hacker"
 	})
+
+	// Recursive Function
+	// is function that calls the function itself
+	// Sometimes we need to write recursive function, because it easier than when We write without it.
+	// Example case is write function to calculate factorial number
+
+	fmt.Println(4 * 3 * 2 * 1)             // This is how factorial works
+	fmt.Println(factorialWithLoop(4))      // This is example without recursive
+	fmt.Println(factorialWithRecursive(4)) // This is example with recursive
 }
