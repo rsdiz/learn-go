@@ -18,6 +18,14 @@ func getFullName() (string, string) {
 	return "Rosyid", "Izzulkhaq"
 }
 
+func getAccessoriesStats() (bracelet, necklace, earring int) {
+	bracelet = 25
+	necklace = 30
+	earring = 32
+
+	return
+}
+
 func main() {
 	// Function
 	// is a block of code intentionally created in a program so that can be used repeatedly
@@ -50,4 +58,11 @@ func main() {
 	// We can ignore return value by change the variable to underscore (_)
 
 	firstName, _ = getFullName()
+
+	// Named Return Value
+	// in Go-Lang we can give name to return value
+
+	bracelet, necklace, earring := getAccessoriesStats()
+
+	fmt.Printf("Bracelet give extra %d ATK, Necklace give extra %d DEF, and Earring give extra %d SPD", bracelet, necklace, earring)
 }
