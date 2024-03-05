@@ -5,6 +5,8 @@ import (
 	"strings"
 )
 
+type Filter func(string) string
+
 func PrintHello() {
 	fmt.Println("Hello")
 }
@@ -37,7 +39,7 @@ func calcAverage(numbers ...int) int {
 	return total / len(numbers)
 }
 
-func getHelloWithFilter(word string, filter func(string) string) string {
+func getHelloWithFilter(word string, filter Filter) string {
 	return getHello(filter(word))
 }
 
@@ -116,5 +118,14 @@ func main() {
 	// Besides being able to store in variable as value, we can also use function as parameters for other functions
 
 	filteredHello := getHelloWithFilter("ASU", filterBadWord)
+	fmt.Println(filteredHello)
+
+	// Function Type Declarations
+	// Sometimes function is too long, too hard to write function as parameter,
+	// We can create alias function with Type Declarations, so it will make it easy for us
+	// when We use function as parameter
+
+	// see parameter in getHelloWithFilter(), now it using type declaration
+	filteredHello = getHelloWithFilter("Celeng", filterBadWord)
 	fmt.Println(filteredHello)
 }
