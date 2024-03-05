@@ -7,7 +7,10 @@ import (
 
 type Dictionary map[string]string
 
-var ErrNotFound = errors.New("could not find the word you were looking for")
+var (
+	ErrNotFound   = errors.New("could not find the word you were looking for")
+	ErrWordExists = errors.New("cannot add word because it already exists")
+)
 
 func Add(x, y int) int {
 	return x + y
@@ -52,8 +55,19 @@ func (d Dictionary) Search(word string) (string, error) {
 	return definition, nil
 }
 
-func (d Dictionary) Add(word, definition string) {
-	d[word] = definition
+func (d Dictionary) Add(word, definition string) error {
+	_, err := d.Search(word)
+
+	switch {
+	case errors.Is(err, ErrNotFound):
+		d[word] = definition
+	case err == nil:
+		return ErrWordExists
+	default:
+		return err
+	}
+
+	return nil
 }
 
 func main() {
