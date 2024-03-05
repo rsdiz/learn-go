@@ -159,39 +159,35 @@ func TestDictionary_Search(t *testing.T) {
 
 func TestDictionary_Add(t *testing.T) {
 	dictionary := Dictionary{}
-	dictionary.Add("test", "a procedure intended to establish")
+	word := "test"
+	definition := "a procedure intended to establish"
+	dictionary.Add(word, definition)
 
-	want := "a procedure intended to establish"
-	got, err := dictionary.Search("test")
-	if err != nil {
-		t.Fatal("should find added word:", err)
-	}
-
-	assertCorrectStringValue(t, got, want)
+	assertCorrectDefinitionValue(t, dictionary, word, definition)
 }
 
-func assertCorrectIntValue(t *testing.T, sum, expected int) {
+func assertCorrectIntValue(t testing.TB, sum, expected int) {
 	t.Helper()
 	if !reflect.DeepEqual(sum, expected) {
 		t.Errorf("sum %d expected %d", sum, expected)
 	}
 }
 
-func assertCorrectFloatValue(t *testing.T, sum, expected float64) {
+func assertCorrectFloatValue(t testing.TB, sum, expected float64) {
 	t.Helper()
 	if !reflect.DeepEqual(sum, expected) {
 		t.Errorf("sum %f expected %f", sum, expected)
 	}
 }
 
-func assertCorrectSliceValue(t *testing.T, got, expected []int) {
+func assertCorrectSliceValue(t testing.TB, got, expected []int) {
 	t.Helper()
 	if !reflect.DeepEqual(got, expected) {
 		t.Errorf("got %v expected %v", got, expected)
 	}
 }
 
-func assertCorrectStringValue(t *testing.T, got, want string) {
+func assertCorrectStringValue(t testing.TB, got, want string) {
 	t.Helper()
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
@@ -203,4 +199,13 @@ func assertCorrectErrorValue(t testing.TB, got, want error) {
 	if !errors.Is(got, want) {
 		t.Errorf("got error %q want %q", got, want)
 	}
+}
+
+func assertCorrectDefinitionValue(t testing.TB, dictionary Dictionary, word, definition string) {
+	t.Helper()
+	got, err := dictionary.Search(word)
+	if err != nil {
+		t.Fatal("should find added word:", err)
+	}
+	assertCorrectStringValue(t, got, definition)
 }
