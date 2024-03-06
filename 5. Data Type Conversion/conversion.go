@@ -6,11 +6,13 @@ import (
 )
 
 func main() {
-	// in go-lang, we can convert a data type to another data type
-	// but please note,to perform data type conversions carefully
-	// because when value does not fit within its allocated memory space,
-	// an overflow will occur
-	// Example: Integer Overflow will occur when 32768 convert to int8
+	/**
+	in go-lang, we can convert a data type to another data type
+	but please note,to perform data type conversions carefully
+	because when value does not fit within its allocated memory space,
+	an overflow will occur
+	Example: Integer Overflow will occur when 32768 convert to int8
+	*/
 
 	var data1 int32 = 129
 	var data2 = int16(data1)
@@ -28,8 +30,10 @@ func main() {
 	fmt.Println(r)
 	fmt.Println(rString)
 
-	// to check the data type from variable, we can use library from reflect.
-	// reflect.TypeOf(variableName)
+	/**
+	to check the data type from variable, we can use library from reflect.
+	reflect.TypeOf(variableName)
+	*/
 
 	fmt.Println("data1 is", reflect.TypeOf(data1))
 	fmt.Println("data2 is", reflect.TypeOf(data2))

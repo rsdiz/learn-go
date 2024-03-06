@@ -3,12 +3,14 @@ package main
 import "fmt"
 
 func main() {
-	// Arithmetic operation in go-lang is same as other programming language
-	// + (Add)
-	// - (Reduction)
-	// * (Multiply)
-	// / (Divider)
-	// % (Modulo)
+	/**
+	Arithmetic operation in go-lang is same as other programming language
+	+ (Add)
+	- (Reduction)
+	* (Multiply)
+	/ (Divider)
+	% (Modulo)
+	*/
 
 	sum := 10 + 10
 	fmt.Println("Penjumlahan:", sum)
@@ -21,12 +23,14 @@ func main() {
 	sum = 10 % 10
 	fmt.Println("Modulus:", sum)
 
-	// Like in other programming language, go-lang has augmented assignments too
-	// +=
-	// -=
-	// *=
-	// /=
-	// %=
+	/**
+	Like in other programming language, go-lang has augmented assignments too
+	+=
+	-=
+	*=
+	/=
+	%=
+	*/
 
 	angka := float32(1)
 	fmt.Println("Angka awal:", angka)
@@ -42,12 +46,14 @@ func main() {
 	intAngka %= 2
 	fmt.Println("Angka % 2:", intAngka)
 
-	// Then, another operation is unary operator
-	// ++ (increment)
-	// -- (decrement)
-	// - (negative)
-	// + (positive)
-	// ! (Reverse Boolean)
+	/**
+	Then, another operation is unary operator
+	++ (increment)
+	-- (decrement)
+	- (negative)
+	+ (positive)
+	! (Reverse Boolean)
+	*/
 
 	count := 1
 	fmt.Println("Initialize:", count)

@@ -3,10 +3,12 @@ package main
 import "fmt"
 
 func main() {
-	// Boolean operation:
-	// && (and)
-	// || (or)
-	// ! (not)
+	/**
+	Boolean operation:
+	&& (and)
+	|| (or)
+	! (not)
+	*/
 
 	finalScore := 87
 	presence := 90

@@ -3,9 +3,11 @@ package main
 import "fmt"
 
 func main() {
-	// in golang, variable only store the same data type
-	// if we want to store data of different types, we have to create several variables
-	// to create variable, use keyword "var" follow with variable name and data type
+	/**
+	in golang, variable only store the same data type
+	if we want to store data of different types, we have to create several variables
+	to create variable, use keyword "var" follow with variable name and data type
+	*/
 
 	var name string
 	name = "Rosyid Izzulkhaq"
@@ -14,9 +16,11 @@ func main() {
 	name = "Muhammad Rosyid Izzulkhaq"
 	fmt.Println("Update Nama:", name)
 
-	// Data type is important went we create the variable,
-	// but if we create variable, and we initialize it with some value,
-	// we don't need to put the data type
+	/**
+	Data type is important went we create the variable,
+	but if we create variable, and we initialize it with some value,
+	we don't need to put the data type
+	*/
 
 	var long = 3
 	fmt.Println("How long:", long)
