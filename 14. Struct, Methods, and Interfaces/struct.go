@@ -12,10 +12,25 @@ Every data in structs are saved in the field.
 We can call struct is collection of fields.
 */
 
-type User struct {
-	fullName    string
-	dateOfBirth time.Time
-	phoneNumber string
+type (
+	User struct {
+		fullName    string
+		dateOfBirth time.Time
+		phoneNumber string
+	}
+
+	Rectangle struct {
+		Width  float64
+		Height float64
+	}
+)
+
+func Perimeter(rectangle Rectangle) float64 {
+	return 2 * (rectangle.Width + rectangle.Height)
+}
+
+func Area(rectangle Rectangle) float64 {
+	return rectangle.Width * rectangle.Height
 }
 
 func main() {
