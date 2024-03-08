@@ -48,6 +48,10 @@ func (rectangle Rectangle) Perimeter() float64 {
 	return 2 * (rectangle.Width + rectangle.Height)
 }
 
+func (circle Circle) Perimeter() float64 {
+	return 2 * math.Pi * circle.Radius
+}
+
 func main() {
 	// First way to initialize struct
 	location, _ := time.LoadLocation("Asia/Jakarta")
