@@ -30,10 +30,6 @@ type (
 	}
 )
 
-func Perimeter(rectangle Rectangle) float64 {
-	return 2 * (rectangle.Width + rectangle.Height)
-}
-
 /**
 Struct Method
 Struct is a datatype like other datatype, it can be used as a parameter in the function.
@@ -46,6 +42,10 @@ func (rectangle Rectangle) Area() float64 {
 
 func (circle Circle) Area() float64 {
 	return math.Pi * (math.Pow(circle.Radius, 2))
+}
+
+func (rectangle Rectangle) Perimeter() float64 {
+	return 2 * (rectangle.Width + rectangle.Height)
 }
 
 func main() {
