@@ -52,6 +52,10 @@ func (circle Circle) Perimeter() float64 {
 	return 2 * math.Pi * circle.Radius
 }
 
+func (u User) SayHi(user User) string {
+	return "Hi " + user.fullName + ", my name is " + u.fullName
+}
+
 func main() {
 	// First way to initialize struct
 	location, _ := time.LoadLocation("Asia/Jakarta")
@@ -69,4 +73,7 @@ func main() {
 	user2.phoneNumber = "08987654321"
 
 	fmt.Printf("Name: %s\nDate of Birth: %s\nPhone Number: %s\n", user2.fullName, user2.dateOfBirth.Format("Monday, 2 January 2006"), user2.phoneNumber)
+
+	fmt.Println(user2.SayHi(user))
+	fmt.Println(user.SayHi(user2))
 }
