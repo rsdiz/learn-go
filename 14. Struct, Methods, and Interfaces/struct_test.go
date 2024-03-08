@@ -5,39 +5,39 @@ import (
 )
 
 func TestPerimeter(t *testing.T) {
-	checkPerimeter := func(t *testing.T, shape Shape, want float64) {
-		t.Helper()
-		got := shape.Perimeter()
-		assertCorrectFloatValue(t, got, want)
+	perimeterTest := []struct {
+		name  string
+		shape Shape
+		want  float64
+	}{
+		{name: "rectangle", shape: Rectangle{Width: 10.0, Height: 10.0}, want: 40.0},
+		{name: "circle", shape: Circle{Radius: 10.0}, want: 62.83185307179586},
 	}
 
-	t.Run("rectangles", func(t *testing.T) {
-		rectangle := Rectangle{10.0, 10.0}
-		checkPerimeter(t, rectangle, 40.0)
-	})
-
-	t.Run("circles", func(t *testing.T) {
-		circle := Circle{10.0}
-		checkPerimeter(t, circle, 62.83185307179586)
-	})
+	for _, tt := range perimeterTest {
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.shape.Perimeter()
+			assertCorrectFloatValue(t, tt.shape, got, tt.want)
+		})
+	}
 }
 
 func TestArea(t *testing.T) {
-	checkArea := func(t *testing.T, shape Shape, want float64) {
-		t.Helper()
-		got := shape.Area()
-		assertCorrectFloatValue(t, got, want)
+	areaTest := []struct {
+		name  string
+		shape Shape
+		want  float64
+	}{
+		{name: "rectangle", shape: Rectangle{Width: 10.0, Height: 10.0}, want: 100.0},
+		{name: "circle", shape: Circle{Radius: 10.0}, want: 314.1592653589793},
 	}
 
-	t.Run("rectangles", func(t *testing.T) {
-		rectangle := Rectangle{12.0, 6.0}
-		checkArea(t, rectangle, 72.0)
-	})
-
-	t.Run("circles", func(t *testing.T) {
-		circle := Circle{10.0}
-		checkArea(t, circle, 314.1592653589793)
-	})
+	for _, tt := range areaTest {
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.shape.Area()
+			assertCorrectFloatValue(t, tt.shape, got, tt.want)
+		})
+	}
 }
 
 func TestUser_SayHi(t *testing.T) {
@@ -53,11 +53,11 @@ func TestUser_SayHi(t *testing.T) {
 	assertCorrectStringValue(t, got, want)
 }
 
-func assertCorrectFloatValue(t testing.TB, got, want float64) {
+func assertCorrectFloatValue(t testing.TB, shape Shape, got, want float64) {
 	t.Helper()
 
 	if got != want {
-		t.Errorf("got %.2f want %.2f", got, want)
+		t.Errorf("%#v got %g want %g", shape, got, want)
 	}
 }
 
