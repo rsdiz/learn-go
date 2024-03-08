@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"reflect"
 	"time"
 )
 
@@ -73,7 +74,29 @@ Implementation Interface,
 any datatype that conforms to an interface contract is automatically considered to be that interface,
 so we don't need to implement the interface manually.
 This is different with another programming language, where we must explicitly state which interface we will use.
+
+Empty Interface,
+Go-lang is not an object-oriented programming.
+Usually, in OOP there is one parent data at the top which can be considered as all the data implementations.
+Some example, in Java there is java.lang.Object
+To handle this case in go-lang, we can use empty interface.
+Empty interface is an interface that has no methods, this means that all data types will automatically
+be considered as that interface implementation.
+
+Example in Go-lang:
+- fmt.Println(a ...interface{})
+- panic(v interface{})
+- recover() interface{}
 */
+
+func Nothing(a interface{}) interface{} {
+	switch reflect.TypeOf(a).Name() {
+	case "string":
+		return "Just Nothing, and " + fmt.Sprint(a)
+	default:
+		return a
+	}
+}
 
 func main() {
 	// First way to initialize struct
@@ -95,4 +118,6 @@ func main() {
 
 	fmt.Println(user2.SayHi(user))
 	fmt.Println(user.SayHi(user2))
+
+	fmt.Println(Nothing("Hello World"))
 }
