@@ -1,6 +1,8 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestPerimeter(t *testing.T) {
 	t.Run("rectangles", func(t *testing.T) {
@@ -38,10 +40,31 @@ func TestArea(t *testing.T) {
 	})
 }
 
+func TestUser_SayHi(t *testing.T) {
+	user := User{
+		fullName: "Rosyid",
+	}
+	user2 := User{
+		fullName: "Izzulkhaq",
+	}
+	got := user.SayHi(user2)
+	want := "Hi Izzulkhaq, my name is Rosyid"
+
+	assertCorrectStringValue(t, got, want)
+}
+
 func assertCorrectFloatValue(t testing.TB, got, want float64) {
 	t.Helper()
 
 	if got != want {
 		t.Errorf("got %.2f want %.2f", got, want)
+	}
+}
+
+func assertCorrectStringValue(t testing.TB, got, want string) {
+	t.Helper()
+
+	if got != want {
+		t.Errorf("got %q want %q", got, want)
 	}
 }
