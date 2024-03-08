@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"time"
 )
 
@@ -23,14 +24,28 @@ type (
 		Width  float64
 		Height float64
 	}
+
+	Circle struct {
+		Radius float64
+	}
 )
 
 func Perimeter(rectangle Rectangle) float64 {
 	return 2 * (rectangle.Width + rectangle.Height)
 }
 
-func Area(rectangle Rectangle) float64 {
+/**
+Struct Method
+Struct is a datatype like other datatype, it can be used as a parameter in the function.
+But if We want to create a method to the structs, it's like a struct has a function.
+*/
+
+func (rectangle Rectangle) Area() float64 {
 	return rectangle.Width * rectangle.Height
+}
+
+func (circle Circle) Area() float64 {
+	return math.Pi * (math.Pow(circle.Radius, 2))
 }
 
 func main() {
