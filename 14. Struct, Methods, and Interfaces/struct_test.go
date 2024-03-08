@@ -3,11 +3,21 @@ package main
 import "testing"
 
 func TestPerimeter(t *testing.T) {
-	rectangle := Rectangle{10.0, 10.0}
-	got := Perimeter(rectangle)
-	want := 40.0
+	t.Run("rectangles", func(t *testing.T) {
+		rectangle := Rectangle{10.0, 10.0}
+		got := rectangle.Perimeter()
+		want := 40.0
 
-	assertCorrectFloatValue(t, got, want)
+		assertCorrectFloatValue(t, got, want)
+	})
+
+	t.Run("circles", func(t *testing.T) {
+		circle := Circle{10.0}
+		got := circle.Perimeter()
+		want := 62.83185307179586
+
+		assertCorrectFloatValue(t, got, want)
+	})
 }
 
 func TestArea(t *testing.T) {
