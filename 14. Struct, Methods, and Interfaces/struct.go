@@ -14,6 +14,13 @@ We can call struct is collection of fields.
 */
 
 type (
+	Shape interface {
+		Area() float64
+		Perimeter() float64
+	}
+)
+
+type (
 	User struct {
 		fullName    string
 		dateOfBirth time.Time
@@ -55,6 +62,18 @@ func (circle Circle) Perimeter() float64 {
 func (u User) SayHi(user User) string {
 	return "Hi " + user.fullName + ", my name is " + u.fullName
 }
+
+/**
+Interface,
+is an abstract datatype, it doesn't have direct implementation.
+An interface contains definition of methods.
+An interface usually used as a contract.
+
+Implementation Interface,
+any datatype that conforms to an interface contract is automatically considered to be that interface,
+so we don't need to implement the interface manually.
+This is different with another programming language, where we must explicitly state which interface we will use.
+*/
 
 func main() {
 	// First way to initialize struct
