@@ -34,6 +34,19 @@ type (
 	}
 )
 
+/**
+Pointer in Function.
+Each parameter in function, by default it's pass by value.
+It's mean the data will be copied then send to function,
+therefore, if we update a data in function, the original data will never change.
+It's make the data is safe, but in some case, we need change the original data inside function,
+to do this we can use pointer in function, to make parameter as pointer, we need "*" operator
+*/
+
+func updatePersonName(person *Person, name string) {
+	person.name = name
+}
+
 func (w *Wallet) Deposit(amount int) {
 	fmt.Printf("address of balance in Deposit is %p \n", &w.balance)
 	w.balance += amount
@@ -78,4 +91,11 @@ func main() {
 
 	fmt.Printf("Person4: %#v, address: %p \n", person4, &person4)
 	fmt.Printf("Person5: %#v, address: %p \n", person5, &person5)
+
+	fmt.Println()
+
+	updatePersonName(person5, "Rosyid I")
+	updatePersonName(&person2, "Izz") // if variable isn't pointer, use "&" operator
+	fmt.Printf("Person5: %#v, address: %p \n", person5, &person5)
+	fmt.Printf("Person2: %#v, address: %p \n", person2, &person2)
 }
