@@ -58,12 +58,15 @@ when calling the method.
 */
 
 func (w *Wallet) Deposit(amount Rupiah) {
-	fmt.Printf("address of balance in Deposit is %p \n", &w.balance)
 	w.balance += amount
 }
 
 func (w *Wallet) Balance() Rupiah {
 	return w.balance
+}
+
+func (w *Wallet) Withdraw(amount Rupiah) {
+	w.balance -= amount
 }
 
 // Stringer, is a type that can describe itself as string
