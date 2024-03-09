@@ -89,13 +89,13 @@ func main() {
 	var person5 *Person = new(Person)
 	person5.name = "M. Rosyid"
 
-	fmt.Printf("Person4: %#v, address: %p \n", person4, &person4)
-	fmt.Printf("Person5: %#v, address: %p \n", person5, &person5)
+	fmt.Printf("Person4: %#v, address: %p \n", person4, person4)
+	fmt.Printf("Person5: %#v, address: %p \n", person5, person5)
 
 	fmt.Println()
 
 	updatePersonName(person5, "Rosyid I")
 	updatePersonName(&person2, "Izz") // if variable isn't pointer, use "&" operator
-	fmt.Printf("Person5: %#v, address: %p \n", person5, &person5)
+	fmt.Printf("Person5: %#v, address: %p \n", person5, person5)
 	fmt.Printf("Person2: %#v, address: %p \n", person2, &person2)
 }

@@ -17,3 +17,15 @@ func TestWallet(t *testing.T) {
 		t.Errorf("got %d want %d", got, want)
 	}
 }
+
+func TestPerson(t *testing.T) {
+	person := Person{name: "Izzulkhaq"}
+	updatePersonName(&person, "Rosyid")
+
+	got := person.name
+	fmt.Printf("address of person in test is %p \n", &person.name)
+	want := "Rosyid"
+	if got != want {
+		t.Errorf("got %s want %s", got, want)
+	}
+}
