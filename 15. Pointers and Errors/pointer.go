@@ -26,11 +26,14 @@ but this function just return empty data, without initial data
 */
 
 type (
+	Rupiah int
+
 	Person struct {
 		name string
 	}
+
 	Wallet struct {
-		balance int
+		balance Rupiah
 	}
 )
 
@@ -54,13 +57,19 @@ Very recommended to use pointer in the method, so it doesn't waste memory becaus
 when calling the method.
 */
 
-func (w *Wallet) Deposit(amount int) {
+func (w *Wallet) Deposit(amount Rupiah) {
 	fmt.Printf("address of balance in Deposit is %p \n", &w.balance)
 	w.balance += amount
 }
 
-func (w *Wallet) Balance() int {
+func (w *Wallet) Balance() Rupiah {
 	return w.balance
+}
+
+// Stringer, is a type that can describe itself as string
+// For example, we can implement stringer on rupiah like this,
+func (r Rupiah) String() string {
+	return fmt.Sprintf("Rp.%d,-", r)
 }
 
 func main() {
