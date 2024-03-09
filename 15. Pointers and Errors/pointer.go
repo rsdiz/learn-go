@@ -47,6 +47,13 @@ func updatePersonName(person *Person, name string) {
 	person.name = name
 }
 
+/**
+Pointer in Method.
+Even though the method will be attached to the struct, the actual struct data accessed in the method is pass by value.
+Very recommended to use pointer in the method, so it doesn't waste memory because it always has to be duplicated
+when calling the method.
+*/
+
 func (w *Wallet) Deposit(amount int) {
 	fmt.Printf("address of balance in Deposit is %p \n", &w.balance)
 	w.balance += amount
