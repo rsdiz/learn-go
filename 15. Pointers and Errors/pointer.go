@@ -84,7 +84,7 @@ To create error, we don't need to create it manually, Go-Lang has provided libra
 
 func (w *Wallet) Withdraw(amount Rupiah) error {
 	if amount > w.balance {
-		return errors.New("insufficient balance to make a withdrawal")
+		return errors.New("insufficient funds to make a withdrawal")
 	}
 
 	w.balance -= amount
