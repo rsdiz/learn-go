@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 /**
 Pointer.
@@ -65,8 +68,27 @@ func (w *Wallet) Balance() Rupiah {
 	return w.balance
 }
 
-func (w *Wallet) Withdraw(amount Rupiah) {
+/**
+Nil.
+Usually, If an object is not initialized, its value will automatically be null or nil.
+It's different in Go-Lang, uninitialized variable with certain data type, its default value will automatically be created.
+In Go-Lang, there is "nil", or in other words empty data.
+Nil value can only be used in several data type: interface, function, map, slice, pointer, and channel.
+*/
+
+/**
+Error Interface.
+Go-Lang has interface to be used as contract for creating error, it's named "error".
+To create error, we don't need to create it manually, Go-Lang has provided library to create helper easily.
+*/
+
+func (w *Wallet) Withdraw(amount Rupiah) error {
+	if amount > w.balance {
+		return errors.New("insufficient balance to make a withdrawal")
+	}
+
 	w.balance -= amount
+	return nil
 }
 
 // Stringer, is a type that can describe itself as string
