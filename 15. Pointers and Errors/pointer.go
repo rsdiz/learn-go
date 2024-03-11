@@ -40,6 +40,8 @@ type (
 	}
 )
 
+var ErrInsufficientFunds = errors.New("insufficient funds to make a withdrawal")
+
 /**
 Pointer in Function.
 Each parameter in function, by default it's pass by value.
@@ -84,7 +86,7 @@ To create error, we don't need to create it manually, Go-Lang has provided libra
 
 func (w *Wallet) Withdraw(amount Rupiah) error {
 	if amount > w.balance {
-		return errors.New("insufficient funds to make a withdrawal")
+		return ErrInsufficientFunds
 	}
 
 	w.balance -= amount
