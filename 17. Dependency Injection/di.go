@@ -1,8 +1,9 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
+	"io"
+	"os"
 )
 
 /**
@@ -32,7 +33,18 @@ So we know under the covers we're ultimately using Writer to send our greetings 
 Let's use this existing abstraction to make our code testable and more reusable.
 */
 
-func Greet(writer *bytes.Buffer, name string) {
-	// instead using fmt.Printf(), we use fmt.Fprintf()
+// Greet , This is technically correct, but not very useful.
+// We can change the expected argument from bytes.Buffer to io.Writer
+// By change our code to use the more general purpose interface
+// we can now use it in both tests and in our application.
+func Greet(writer io.Writer, name string) {
+	/**
+	instead using fmt.Printf(), we use fmt.Fprintf()
+	Fprintf allows us to inject an io.Writer which we know both os.Stdout and bytes.Buffer implement.
+	*/
 	_, _ = fmt.Fprintf(writer, "Hi, %s", name)
+}
+
+func main() {
+	Greet(os.Stdout, "Rosyid")
 }
