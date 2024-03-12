@@ -69,6 +69,36 @@ const (
 	countdownStart = 3
 )
 
+/**
+Define dependency as an interface
+*/
+
+type (
+	// Sleeper is interface for dependency
+	// This lets us then use a real Sleeper in main and a spy sleeper in our tests
+	Sleeper interface {
+		Sleep()
+	}
+
+	// SpySleeper is a kind of mock which can record how a dependency is used
+	SpySleeper struct {
+		Calls int
+	}
+
+	// DefaultSleeper real sleeper which implements the interface we need
+	DefaultSleeper struct{}
+)
+
+// Sleep , we're keeping track of how many times Sleep() is called so we can check it in our test.
+func (s *SpySleeper) Sleep() {
+	s.Calls++
+}
+
+// Sleep , call time.Sleep(1000) for real application
+func (s *DefaultSleeper) Sleep() {
+	time.Sleep(1 * time.Second)
+}
+
 func Countdown(out io.Writer) {
 	for i := countdownStart; i > 0; i-- {
 		_, _ = fmt.Fprintln(out, i)
