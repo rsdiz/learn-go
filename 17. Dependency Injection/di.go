@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"io"
 	"os"
@@ -55,10 +54,12 @@ we will break down this function into 3 steps:
 - Wait a second between each line
 */
 
-func Countdown(out *bytes.Buffer) {
+func Countdown(out io.Writer) {
 	_, _ = fmt.Fprint(out, "3")
 }
 
 func main() {
 	Greet(os.Stdout, "Rosyid")
+	fmt.Println()
+	Countdown(os.Stdout)
 }
