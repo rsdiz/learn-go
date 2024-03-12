@@ -45,6 +45,15 @@ func Greet(writer io.Writer, name string) {
 	_, _ = fmt.Fprintf(writer, "Hi, %s", name)
 }
 
+/**
+Mocking.
+Before we learn about mocking, let's code an example of function to make a countdown,
+we will break down this function into 3 steps:
+- Print 3
+- Print 3, 2, 1, and Go!
+- Wait a second between each line
+*/
+
 func main() {
 	Greet(os.Stdout, "Rosyid")
 }
