@@ -72,6 +72,9 @@ we haven't tested the important property, Countdown() should sleep before each n
 - Print Go!
 Our latest change only asserts that it has slept 3 times, but those sleeps could occur out of sequence.
 Let's use spying again with a new test to check the order of operations is correct.
+
+Now, this program its look nice, but it will be excellence if the Sleeper can configurable,
+for example, we can adjust the sleep time
 */
 
 const (
@@ -99,6 +102,17 @@ type (
 	SpyCountdownOperations struct {
 		Calls []string
 	}
+
+	// ConfigurableSleeper will accept configuration and testing
+	ConfigurableSleeper struct {
+		duration time.Duration
+		sleep    func(time.Duration)
+	}
+
+	// SpyTime will save duration of sleep
+	SpyTime struct {
+		durationSlept time.Duration
+	}
 )
 
 // Sleep , call time.Sleep(1000) for real application
@@ -117,6 +131,16 @@ func (o *SpyCountdownOperations) Sleep() {
 func (o *SpyCountdownOperations) Write(p []byte) (n int, err error) {
 	o.Calls = append(o.Calls, write)
 	return
+}
+
+// Sleep , it will call sleep function and pass duration as parameter
+func (s *ConfigurableSleeper) Sleep() {
+	s.sleep(s.duration)
+}
+
+// Sleep , it just save duration of slept
+func (s *SpyTime) Sleep(duration time.Duration) {
+	s.durationSlept = duration
 }
 
 func Countdown(out io.Writer, sleeper Sleeper) {
