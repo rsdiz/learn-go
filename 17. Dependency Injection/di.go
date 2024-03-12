@@ -95,9 +95,6 @@ type (
 		Sleep()
 	}
 
-	// DefaultSleeper real sleeper which implements the interface we need
-	DefaultSleeper struct{}
-
 	// SpyCountdownOperations Record all operations into one line
 	SpyCountdownOperations struct {
 		Calls []string
@@ -114,11 +111,6 @@ type (
 		durationSlept time.Duration
 	}
 )
-
-// Sleep , call time.Sleep(1000) for real application
-func (s *DefaultSleeper) Sleep() {
-	time.Sleep(1 * time.Second)
-}
 
 // Sleep , append "sleep" into list
 // This method implements Sleeper
@@ -154,6 +146,9 @@ func Countdown(out io.Writer, sleeper Sleeper) {
 func main() {
 	Greet(os.Stdout, "Rosyid")
 	fmt.Println()
-	sleeper := &DefaultSleeper{}
+	sleeper := &ConfigurableSleeper{
+		duration: 1 * time.Second,
+		sleep:    time.Sleep,
+	}
 	Countdown(os.Stdout, sleeper)
 }
