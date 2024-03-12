@@ -99,10 +99,10 @@ func (s *DefaultSleeper) Sleep() {
 	time.Sleep(1 * time.Second)
 }
 
-func Countdown(out io.Writer) {
+func Countdown(out io.Writer, sleeper Sleeper) {
 	for i := countdownStart; i > 0; i-- {
 		_, _ = fmt.Fprintln(out, i)
-		time.Sleep(1 * time.Second)
+		sleeper.Sleep()
 	}
 	_, _ = fmt.Fprint(out, finalWord)
 }
@@ -110,5 +110,6 @@ func Countdown(out io.Writer) {
 func main() {
 	Greet(os.Stdout, "Rosyid")
 	fmt.Println()
-	Countdown(os.Stdout)
+	sleeper := &DefaultSleeper{}
+	Countdown(os.Stdout, sleeper)
 }

@@ -19,8 +19,9 @@ func TestGreet(t *testing.T) {
 
 func TestCountdown(t *testing.T) {
 	buffer := &bytes.Buffer{}
+	spySleeper := &SpySleeper{}
 
-	Countdown(buffer)
+	Countdown(buffer, spySleeper)
 
 	got := buffer.String()
 	want := `3
