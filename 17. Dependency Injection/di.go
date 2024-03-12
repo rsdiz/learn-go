@@ -92,11 +92,6 @@ type (
 		Sleep()
 	}
 
-	// SpySleeper is a kind of mock which can record how a dependency is used
-	SpySleeper struct {
-		Calls int
-	}
-
 	// DefaultSleeper real sleeper which implements the interface we need
 	DefaultSleeper struct{}
 
@@ -105,11 +100,6 @@ type (
 		Calls []string
 	}
 )
-
-// Sleep , we're keeping track of how many times Sleep() is called so we can check it in our test.
-func (s *SpySleeper) Sleep() {
-	s.Calls++
-}
 
 // Sleep , call time.Sleep(1000) for real application
 func (s *DefaultSleeper) Sleep() {

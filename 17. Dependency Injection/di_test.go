@@ -21,9 +21,7 @@ func TestGreet(t *testing.T) {
 func TestCountdown(t *testing.T) {
 	t.Run("prints 3 to Go!", func(t *testing.T) {
 		buffer := &bytes.Buffer{}
-		spySleeper := &SpySleeper{}
-
-		Countdown(buffer, spySleeper)
+		Countdown(buffer, &SpyCountdownOperations{})
 
 		got := buffer.String()
 		want := `3
