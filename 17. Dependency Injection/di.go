@@ -62,6 +62,16 @@ So, what the solution for this problem?
 Let's see dependency in time.Sleep(), after that we need to extract it, so we can control it in our tests.
 If we can mock time.Sleep we can use dependency injection to use it instead of a "real" time.Sleep and
 then we can spy on the calls to make assertions on them.
+
+After we're successfully mocking dependency, we still have some problems:
+we haven't tested the important property, Countdown() should sleep before each next print, eg:
+- Print N
+- Sleep
+- Print N-1
+- Sleep
+- Print Go!
+Our latest change only asserts that it has slept 3 times, but those sleeps could occur out of sequence.
+Let's use spying again with a new test to check the order of operations is correct.
 */
 
 const (
