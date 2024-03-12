@@ -77,6 +77,8 @@ Let's use spying again with a new test to check the order of operations is corre
 const (
 	finalWord      = "Go!"
 	countdownStart = 3
+	write          = "write"
+	sleep          = "sleep"
 )
 
 /**
@@ -97,6 +99,11 @@ type (
 
 	// DefaultSleeper real sleeper which implements the interface we need
 	DefaultSleeper struct{}
+
+	// SpyCountdownOperations Record all operations into one line
+	SpyCountdownOperations struct {
+		Calls []string
+	}
 )
 
 // Sleep , we're keeping track of how many times Sleep() is called so we can check it in our test.
@@ -107,6 +114,19 @@ func (s *SpySleeper) Sleep() {
 // Sleep , call time.Sleep(1000) for real application
 func (s *DefaultSleeper) Sleep() {
 	time.Sleep(1 * time.Second)
+}
+
+// Sleep , append "sleep" into list
+// This method implements Sleeper
+func (o *SpyCountdownOperations) Sleep() {
+	o.Calls = append(o.Calls, sleep)
+}
+
+// Write , append "write" into list
+// This method implements io.Writer
+func (o *SpyCountdownOperations) Write(p []byte) (n int, err error) {
+	o.Calls = append(o.Calls, write)
+	return
 }
 
 func Countdown(out io.Writer, sleeper Sleeper) {
