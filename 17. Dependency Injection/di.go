@@ -53,6 +53,15 @@ we will break down this function into 3 steps:
 - Print 3
 - Print 3, 2, 1, and Go!
 - Wait a second between each line
+
+After we finish creating that function, it's works and the tests is past,
+but we have some problem:
+- Tests take 3 second to run
+- We have not tested an important property of our function
+So, what the solution for this problem?
+Let's see dependency in time.Sleep(), after that we need to extract it, so we can control it in our tests.
+If we can mock time.Sleep we can use dependency injection to use it instead of a "real" time.Sleep and
+then we can spy on the calls to make assertions on them.
 */
 
 const (
