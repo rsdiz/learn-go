@@ -35,6 +35,10 @@ Ok, so in concurrency, we have statement 'select'. What is that?
 Before we learn about select, lets create a function that can help us to understand how select works.
 We will create function called 'WebsiteRacer' which takes two URLs and "races" them by hitting them with an HTTP GET
 and returning the URL which returned first. If none of them return within 10 seconds then it should return an 'error'.
+
+Ok, we have been created the function, but the problem is we're reaching out to real websites to test our own logic.
+Testing code that uses HTTP is so common that Go has tools in the standard library to help you test it.
+In the standard library, there is a package called 'net/http/httptest' which enables users to easily create a mock HTTP server.
 */
 
 type (
@@ -80,9 +84,9 @@ func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
 }
 
 func Racer(a, b string) (winner string) {
-	startA := time.Now()
-	http.Get(a)
-	aDuration := time.Since(startA)
+	startA := time.Now()            // record just before we try to get a URL
+	http.Get(a)                     // try and perform an HTTP GET request against the URL
+	aDuration := time.Since(startA) // takes the start time and returns a 'time.Duration' of the difference
 
 	startB := time.Now()
 	http.Get(b)
