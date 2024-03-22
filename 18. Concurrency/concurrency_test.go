@@ -45,6 +45,18 @@ func TestCheckWebsite(t *testing.T) {
 	}
 }
 
+func TestRacer(t *testing.T) {
+	slowUrl := "https://genilogi.id"
+	fastUrl := "https://genovatif.com"
+
+	want := fastUrl
+	got := Racer(slowUrl, fastUrl)
+
+	if got != want {
+		t.Errorf("got %q, want %q", got, want)
+	}
+}
+
 func slowStubWebsiteChecker(_ string) bool {
 	time.Sleep(20 * time.Millisecond)
 	return true

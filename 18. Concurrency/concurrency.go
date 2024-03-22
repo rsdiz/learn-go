@@ -1,5 +1,10 @@
 package main
 
+import (
+	"net/http"
+	"time"
+)
+
 /**
 Concurrency.
 Before we start learning about concurrency, we will create function to checks the status of a list of URLs.
@@ -24,6 +29,12 @@ These operations, along with their details, allow communication between differen
 
 In this case we want to think about the communication between the parent process and each of the goroutines
 that it makes to do the work of running the WebsiteChecker function with the url.
+
+Select.
+Ok, so in concurrency, we have statement 'select'. What is that?
+Before we learn about select, lets create a function that can help us to understand how select works.
+We will create function called 'WebsiteRacer' which takes two URLs and "races" them by hitting them with an HTTP GET
+and returning the URL which returned first. If none of them return within 10 seconds then it should return an 'error'.
 */
 
 type (
@@ -66,4 +77,20 @@ func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
 	}
 
 	return results
+}
+
+func Racer(a, b string) (winner string) {
+	startA := time.Now()
+	http.Get(a)
+	aDuration := time.Since(startA)
+
+	startB := time.Now()
+	http.Get(b)
+	bDuration := time.Since(startB)
+
+	if aDuration < bDuration {
+		return a
+	}
+
+	return b
 }
