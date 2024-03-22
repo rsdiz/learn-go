@@ -48,14 +48,11 @@ func TestCheckWebsite(t *testing.T) {
 }
 
 func TestRacer(t *testing.T) {
-	slowServer := httptest.NewServer(http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
-		time.Sleep(20 * time.Millisecond)
-		writer.WriteHeader(http.StatusOK)
-	}))
+	slowServer := MakeDelayedServer(20 * time.Millisecond)
+	fastServer := MakeDelayedServer(0 * time.Millisecond)
 
-	fastServer := httptest.NewServer(http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
-		writer.WriteHeader(http.StatusOK)
-	}))
+	defer slowServer.Close()
+	defer fastServer.Close()
 
 	slowUrl := slowServer.URL
 	fastUrl := fastServer.URL
@@ -66,9 +63,6 @@ func TestRacer(t *testing.T) {
 	if got != want {
 		t.Errorf("got %q, want %q", got, want)
 	}
-
-	slowServer.Close()
-	fastServer.Close()
 }
 
 func slowStubWebsiteChecker(_ string) bool {
@@ -85,4 +79,11 @@ func BenchmarkCheckWebsite(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		CheckWebsites(slowStubWebsiteChecker, urls)
 	}
+}
+
+func MakeDelayedServer(delay time.Duration) *httptest.Server {
+	return httptest.NewServer(http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
+		time.Sleep(delay)
+		writer.WriteHeader(http.StatusOK)
+	}))
 }
