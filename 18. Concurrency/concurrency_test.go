@@ -92,9 +92,7 @@ func TestCounter(t *testing.T) {
 		counter.Inc()
 		counter.Inc()
 
-		if counter.Value() != 3 {
-			t.Errorf("got %d, want %d", counter.Value(), 3)
-		}
+		assertCounter(t, counter, 3)
 	})
 }
 
@@ -119,4 +117,11 @@ func MakeDelayedServer(delay time.Duration) *httptest.Server {
 		time.Sleep(delay)
 		writer.WriteHeader(http.StatusOK)
 	}))
+}
+
+func assertCounter(t testing.TB, got Counter, want int) {
+	t.Helper()
+	if got.Value() != want {
+		t.Errorf("got %d, want %d", got.Value(), want)
+	}
 }
