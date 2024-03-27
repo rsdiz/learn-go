@@ -51,6 +51,8 @@ func TestRacer(t *testing.T) {
 	slowServer := MakeDelayedServer(20 * time.Millisecond)
 	fastServer := MakeDelayedServer(0 * time.Millisecond)
 
+	// By prefixing a function call with `defer` it will
+	// now call that function at the end of the containing function.
 	defer slowServer.Close()
 	defer fastServer.Close()
 

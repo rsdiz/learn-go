@@ -2,7 +2,6 @@ package main
 
 import (
 	"net/http"
-	"time"
 )
 
 /**
@@ -39,6 +38,12 @@ and returning the URL which returned first. If none of them return within 10 sec
 Ok, we have been created the function, but the problem is we're reaching out to real websites to test our own logic.
 Testing code that uses HTTP is so common that Go has tools in the standard library to help you test it.
 In the standard library, there is a package called 'net/http/httptest' which enables users to easily create a mock HTTP server.
+
+Ok, finally we enter how to use 'Select',
+in this section:
+- Why are we testing the speeds of the websites one after another when Go is great at concurrency? We should be able to check both at the same time.
+- We don't really care about the exact response times of the requests, we just want to know which one comes back first.
+To do that, we need to use 'Select' which helps us synchronise processes really easily and clearly.
 */
 
 type (
@@ -83,19 +88,36 @@ func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
 	return results
 }
 
+/*
+*
+Back to concurrency channel, we can wait for values to be sent to a channel with '<-ch'. This is a blocking call, as you're waiting for a value.
+'select' allows you to wait on multiple channels. The first one to send a value "wins" and the code underneath the case is executed.
+We use ping in our select to set up two channels, one for each of our URLs. Whichever one writes to its channel first
+will have its code executed in the select, which results in its URL being returned (and being the winner).
+After these changes, the intent behind our code is very clear and the implementation is actually simpler.
+*/
 func Racer(a, b string) (winner string) {
-	aDuration := MeasureResponseTime(a)
-	bDuration := MeasureResponseTime(b)
-
-	if aDuration < bDuration {
+	select {
+	case <-ping(a):
 		return a
+	case <-ping(b):
+		return b
 	}
-
-	return b
 }
 
-func MeasureResponseTime(url string) time.Duration {
-	start := time.Now()
-	http.Get(url)
-	return time.Since(start)
+/*
+*
+We have defined a function ping which creates a chan struct{} and returns it.
+In our case, we don't care what type is sent to the channel, we just want to signal we are done and closing the channel works perfectly!
+Why struct{} and not another type like a bool? Well, a chan struct{} is the smallest data type available from a memory perspective,
+so we get no allocation versus a bool. Since we are closing and not sending anything on the chan, why allocate anything?
+Inside the same function, we start a goroutine which will send a signal into that channel once we have completed http.Get(url).
+*/
+func ping(url string) chan struct{} {
+	ch := make(chan struct{}) // create a new channel (zero value is 'nil')
+	go func() {
+		http.Get(url)
+		close(ch)
+	}()
+	return ch
 }
