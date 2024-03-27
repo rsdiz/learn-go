@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"time"
 )
 
 /**
@@ -44,6 +46,8 @@ in this section:
 - Why are we testing the speeds of the websites one after another when Go is great at concurrency? We should be able to check both at the same time.
 - We don't really care about the exact response times of the requests, we just want to know which one comes back first.
 To do that, we need to use 'Select' which helps us synchronise processes really easily and clearly.
+
+Ok, then our final requirement was to return an error if Racer takes longer than 10 seconds.
 */
 
 type (
@@ -96,12 +100,14 @@ We use ping in our select to set up two channels, one for each of our URLs. Whic
 will have its code executed in the select, which results in its URL being returned (and being the winner).
 After these changes, the intent behind our code is very clear and the implementation is actually simpler.
 */
-func Racer(a, b string) (winner string) {
+func Racer(a, b string) (winner string, err error) {
 	select {
 	case <-ping(a):
-		return a
+		return a, nil
 	case <-ping(b):
-		return b
+		return b, nil
+	case <-time.After(10 * time.Second):
+		return "", fmt.Errorf("timed out waiting for %s and %s", a, b)
 	}
 }
 

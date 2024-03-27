@@ -48,23 +48,39 @@ func TestCheckWebsite(t *testing.T) {
 }
 
 func TestRacer(t *testing.T) {
-	slowServer := MakeDelayedServer(20 * time.Millisecond)
-	fastServer := MakeDelayedServer(0 * time.Millisecond)
+	t.Run("compares speeds of servers, returning the url of the fastest one", func(t *testing.T) {
+		slowServer := MakeDelayedServer(20 * time.Millisecond)
+		fastServer := MakeDelayedServer(0 * time.Millisecond)
 
-	// By prefixing a function call with `defer` it will
-	// now call that function at the end of the containing function.
-	defer slowServer.Close()
-	defer fastServer.Close()
+		// By prefixing a function call with `defer` it will
+		// now call that function at the end of the containing function.
+		defer slowServer.Close()
+		defer fastServer.Close()
 
-	slowUrl := slowServer.URL
-	fastUrl := fastServer.URL
+		slowUrl := slowServer.URL
+		fastUrl := fastServer.URL
 
-	want := fastUrl
-	got := Racer(slowUrl, fastUrl)
+		want := fastUrl
+		got, _ := Racer(slowUrl, fastUrl)
 
-	if got != want {
-		t.Errorf("got %q, want %q", got, want)
-	}
+		if got != want {
+			t.Errorf("got %q, want %q", got, want)
+		}
+	})
+
+	t.Run("returns an error if a server doesn't respond within 10s", func(t *testing.T) {
+		serverA := MakeDelayedServer(11 * time.Second)
+		serverB := MakeDelayedServer(12 * time.Second)
+
+		defer serverA.Close()
+		defer serverB.Close()
+
+		_, err := Racer(serverA.URL, serverB.URL)
+
+		if err == nil {
+			t.Error("expected an error but didn't get one")
+		}
+	})
 }
 
 func slowStubWebsiteChecker(_ string) bool {
