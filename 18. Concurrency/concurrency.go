@@ -48,6 +48,9 @@ in this section:
 To do that, we need to use 'Select' which helps us synchronise processes really easily and clearly.
 
 Ok, then our final requirement was to return an error if Racer takes longer than 10 seconds.
+By adding case to handle this requirement, it will make new problem, the test will takes 10 seconds to run.
+What we can do is make the timeout configurable. So in our test, we can have a very short timeout
+and then when the code is used in the real world it can be set to 10 seconds.
 */
 
 type (
@@ -58,6 +61,8 @@ type (
 		bool
 	}
 )
+
+var tenSecondTimeout = 10 * time.Second
 
 func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
 	// Alongside the `results` map we now have a `resultChannel`, which we make in the same way.
@@ -100,13 +105,17 @@ We use ping in our select to set up two channels, one for each of our URLs. Whic
 will have its code executed in the select, which results in its URL being returned (and being the winner).
 After these changes, the intent behind our code is very clear and the implementation is actually simpler.
 */
-func Racer(a, b string) (winner string, err error) {
+func Racer(a, b string) (winner string, error error) {
+	return ConfigurableRacer(a, b, tenSecondTimeout)
+}
+
+func ConfigurableRacer(a, b string, timeout time.Duration) (winner string, err error) {
 	select {
 	case <-ping(a):
 		return a, nil
 	case <-ping(b):
 		return b, nil
-	case <-time.After(10 * time.Second):
+	case <-time.After(timeout):
 		return "", fmt.Errorf("timed out waiting for %s and %s", a, b)
 	}
 }
