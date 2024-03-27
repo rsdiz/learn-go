@@ -51,6 +51,12 @@ Ok, then our final requirement was to return an error if Racer takes longer than
 By adding case to handle this requirement, it will make new problem, the test will takes 10 seconds to run.
 What we can do is make the timeout configurable. So in our test, we can have a very short timeout
 and then when the code is used in the real world it can be set to 10 seconds.
+
+Sync.
+Let's learn about sync in concurrency, before we learn about it, lets see what will we make in this section:
+We want to make a counter which is safe to use concurrently.
+We'll start with an unsafe counter and verify its behaviour works in a single-threaded environment.
+Then we'll exercise its unsafeness, with multiple goroutines trying to use the counter via a test, and fix it.
 */
 
 type (
@@ -59,6 +65,10 @@ type (
 	result struct {
 		string
 		bool
+	}
+	// Counter save integer value for counting
+	Counter struct {
+		value int
 	}
 )
 
@@ -135,4 +145,12 @@ func ping(url string) chan struct{} {
 		close(ch)
 	}()
 	return ch
+}
+
+func (c *Counter) Inc() {
+	c.value++
+}
+
+func (c *Counter) Value() int {
+	return c.value
 }
