@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"sync"
 	"time"
 )
 
@@ -57,6 +58,12 @@ Let's learn about sync in concurrency, before we learn about it, lets see what w
 We want to make a counter which is safe to use concurrently.
 We'll start with an unsafe counter and verify its behaviour works in a single-threaded environment.
 Then we'll exercise its unsafeness, with multiple goroutines trying to use the counter via a test, and fix it.
+
+Ok, now we learn how to use sync:
+- sync.WaitGroup = A WaitGroup waits for a collection of goroutines to finish.
+The main goroutine calls 'Add' to set the number of goroutines to wait for. Then each of the goroutines runs and calls Done when finished.
+At the same time, 'Wait' can be used to block until all goroutines have finished.
+- sync.Mutex = A Mutex is a mutual exclusion lock. The zero value for a Mutex is an unlocked mutex.
 */
 
 type (
@@ -68,6 +75,7 @@ type (
 	}
 	// Counter save integer value for counting
 	Counter struct {
+		mu    sync.Mutex // Mutex is a mutual exclusion lock. The zero value for a Mutex is an unlocked mutex.
 		value int
 	}
 )
@@ -148,6 +156,10 @@ func ping(url string) chan struct{} {
 }
 
 func (c *Counter) Inc() {
+	// What this means is any goroutine calling Inc will acquire the lock on Counter if they are first.
+	// All the other goroutines will have to wait for it to be Unlocked before getting access.
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	c.value++
 }
 
