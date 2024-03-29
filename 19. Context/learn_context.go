@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 )
@@ -23,29 +24,12 @@ Context has a method 'Done()' which return a channel which gets sent a signal wh
 */
 
 type Store interface {
-	Fetch() string
-	Cancel()
+	Fetch(ctx context.Context) (string, error)
 }
 
 func Server(store Store) http.HandlerFunc {
 	return func(writer http.ResponseWriter, request *http.Request) {
-		// We want to listen to that signal and call 'store.Cancel' if we get it,
-		// but we want to ignore it if our 'Store' manages to 'Fetch' before it.
-		ctx := request.Context()
-
-		// To manage this we run 'Fetch' in a goroutine, and it will write the result into a new channel 'data'
-		data := make(chan string, 1)
-
-		go func() {
-			data <- store.Fetch()
-		}()
-
-		// Then use select to effectively race to the two asynchronous processes and then we either write a response or 'Cancel'.
-		select {
-		case d := <-data:
-			fmt.Fprint(writer, d)
-		case <-ctx.Done():
-			store.Cancel()
-		}
+		data, _ := store.Fetch(request.Context())
+		fmt.Fprint(writer, data)
 	}
 }
