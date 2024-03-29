@@ -29,7 +29,12 @@ type Store interface {
 
 func Server(store Store) http.HandlerFunc {
 	return func(writer http.ResponseWriter, request *http.Request) {
-		data, _ := store.Fetch(request.Context())
+		data, err := store.Fetch(request.Context())
+
+		if err != nil {
+			return // todo: log error however you like
+		}
+
 		fmt.Fprint(writer, data)
 	}
 }
